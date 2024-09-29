@@ -37,6 +37,7 @@ public class TeleOpController extends LinearOpMode {
         // RUNNING
 
         while (opModeIsActive()){
+
             final double maxPower = 1.0;
             final double minPower = -1.0;
 

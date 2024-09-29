@@ -38,21 +38,27 @@ public class TeleOpController extends LinearOpMode {
         // RUNNING
 
         while (opModeIsActive()){
-            double leftPower;
-            double rightPower;
+            double leftFrontPower;
+            double rightFrontPower;
+            double leftBackPower;
+            double rightBackPower;
 
             double drive = -gamepad1.left_stick_y;
+            double strafe = gamepad1.left_stick_x;
             double turn  =  gamepad1.right_stick_x;
-            leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
 
-            leftFrontDrive.setPower(leftPower);
-            leftBackDrive.setPower(leftPower);
-            rightFrontDrive.setPower(rightPower);
-            rightBackDrive.setPower(rightPower);
+            leftFrontPower = Range.clip(drive + strafe + turn, -1.0, 1.0);
+            rightFrontPower = Range.clip(drive - strafe - turn, -1.0, 1.0);
+            leftBackPower = Range.clip(drive - strafe + turn, -1.0, 1.0);
+            rightBackPower = Range.clip(drive + strafe - turn, -1.0, 1.0);
+
+            leftFrontDrive.setPower(leftFrontPower);
+            leftBackDrive.setPower(leftBackPower);
+            rightFrontDrive.setPower(rightFrontPower);
+            rightBackDrive.setPower(rightBackPower);
 
             telemetry.addData("Status", "Run Time: " + tick.toString());
-            telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+            telemetry.addData("Motors", "FRONT: left (%.2f), right (%.2f) | BACK: left (%.2f), right (%.2f)", leftFrontPower, rightFrontPower, leftBackPower, rightBackPower);
             telemetry.addData("Coordinates ",  "FRONT: %7d :%7d | BACK: %7d :%7d",
                     leftFrontDrive.getCurrentPosition(),
                     rightFrontDrive.getCurrentPosition(),

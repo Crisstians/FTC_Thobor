@@ -10,6 +10,12 @@ import com.qualcomm.robotcore.util.Range;
 @TeleOp(name = "Controller", group = "Linear OpMode")
 
 public class TeleOpController extends LinearOpMode {
+    // CONSTANTE
+
+    private final double maxPower = 1.0;
+    private final double minPower = -maxPower;
+
+
 
     // Declarare Motoare
 
@@ -47,10 +53,10 @@ public class TeleOpController extends LinearOpMode {
             double strafe = gamepad1.left_stick_x;
             double turn  =  gamepad1.right_stick_x;
 
-            leftFrontPower = Range.clip(drive + strafe + turn, -1.0, 1.0);
-            rightFrontPower = Range.clip(drive - strafe - turn, -1.0, 1.0);
-            leftBackPower = Range.clip(drive - strafe + turn, -1.0, 1.0);
-            rightBackPower = Range.clip(drive + strafe - turn, -1.0, 1.0);
+            leftFrontPower = Range.clip(drive + strafe + turn, minPower, maxPower);
+            rightFrontPower = Range.clip(drive - strafe - turn, minPower, maxPower);
+            leftBackPower = Range.clip(drive - strafe + turn, minPower, maxPower);
+            rightBackPower = Range.clip(drive + strafe - turn, minPower, maxPower);
 
             leftFrontDrive.setPower(leftFrontPower);
             leftBackDrive.setPower(leftBackPower);
